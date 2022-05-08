@@ -1,0 +1,24 @@
+contract TestTimeLock{
+uint public a=0;
+string public dt;
+    address public timeLock;
+    constructor(address _timeLock)
+    {
+        timeLock=_timeLock;
+    }
+    function test(uint tem,string calldata mem) external  {
+        require(msg.sender == timeLock,"not time Lock");
+        a=tem;
+        dt=mem;
+    }
+    function getTimeStamp() external view returns (uint)
+    {
+        return block.timestamp + 100;
+    }
+
+   function dataConvert(uint t,string calldata st) pure public returns (bytes memory rt)
+   {
+     rt=abi.encodeWithSignature("test(uint256,string)",t,st);
+    
+   }
+}
